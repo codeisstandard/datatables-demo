@@ -45,3 +45,4 @@ group :development do
   gem 'spring'
 end
 
+gem 'ffaker', '~> 2.1'
