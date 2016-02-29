@@ -8,24 +8,8 @@
       <th>Name</th>
       <th>Bio</th>
       <th>Age</th>
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
-
-  <tbody>
-    <% @contacts.each do |contact| %>
-      <tr>
-        <td><%= contact.name %></td>
-        <td><%= contact.bio %></td>
-        <td><%= contact.age %></td>
-        <td><%= link_to 'Show', contact %></td>
-        <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
-        <td><%= link_to 'Destroy', contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
 </table>
 
 <br>
@@ -36,6 +20,15 @@
 <script type="text/javascript" src="http://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
   $(function() {
-    $("table#contacts").DataTable();
+    $("table#contacts").DataTable({
+      "processing": true,
+      "serverSide": true,
+      "ajax": "<%= contacts_path(format: :json) %>",
+      "columns": [
+        { "data": "name" },
+        { "data": "bio" },
+        { "data": "age" }
+      ]
+    });
   })
 </script>
