@@ -4,7 +4,7 @@ class ContactsController < ApplicationController
   # GET /contacts
   # GET /contacts.json
   def index
-    @contacts = Contact.limit(params[:length]).offset(params[:start])
+    @contacts = Contact.search(params)
   end
 
   # GET /contacts/1
