@@ -5,6 +5,8 @@
 <table id="contacts" class="display">
   <thead>
     <tr>
+      <th></th>
+      <th></th>
       <th>Name</th>
       <th>Bio</th>
       <th>Age</th>
@@ -20,17 +22,27 @@
 <script type="text/javascript" src="http://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
   $(function() {
-    $("table#contacts").DataTable({
-      "processing": true,
-      "serverSide": true,
-      "ajax": "<%= contacts_path(format: :json) %>",
-      "start": 0,
-      "length": 10,
-      "columns": [
-        { "data": "name" },
-        { "data": "bio" },
-        { "data": "age" }
+    $("table#contacts").dataTable({
+      processing: true,
+      serverSide: true,
+      ajax: "<%= contacts_path(format: :json) %>",
+      start: 0,
+      length: 10,
+      columns: [
+        { // edit link
+          data: "edit_path", render: function (data, _, _, _) {
+            return '<a href="' + data + '">Edit</a>';
+          }
+        },
+        { // delete link
+          data: "path", render: function(data, _, _, _) {
+            return '<a href="' + data + '" data-confirm="Are you sure?" rel="nofollow" data-method="delete">Delete</a>';
+          }
+        },
+        { data: "name" },
+        { data: "bio" },
+        { data: "age" }
       ]
     });
-  })
+  });
 </script>
